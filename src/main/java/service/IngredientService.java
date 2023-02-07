@@ -1,6 +1,5 @@
 package service;
 
-import info.localhost.recipebook.controllers.Ingredient;
 import model.Ingredient;
 
 public interface IngredientService {

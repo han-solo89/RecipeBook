@@ -15,14 +15,14 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/ingredient")
 @RequiredArgsConstructor
 public class IngredientController {
 
     private final IngredientService ingredientService;
     //todo: construct
 
-    @GetMapping
+    @GetMapping("/{id}")
     Ingredient getIngredient(@PathVariable Integer id){return ingredientService.getIngredient(id);}
 
     @PostMapping

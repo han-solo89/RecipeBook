@@ -22,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class IngredientController {
     private final IngredientController ingredientService;
+
     @Operation(summary = "Поиск ингредиента по id")
     @ApiResponses(value = {
             @ApiResponses(responceCode = "200",description = "ингредиент был найден")})

@@ -6,7 +6,6 @@ import javassist.NotFoundException;
 import java.util.Collection;
 
 public interface IngredientService {
-
     Ingredient addIngredient(Ingredient ingredient);
     Ingredient getIngredient(Integer id) throws NotFoundException;
     Collection<Ingredient> getAll();

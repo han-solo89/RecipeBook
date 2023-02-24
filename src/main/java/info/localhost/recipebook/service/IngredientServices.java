@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 @Service
 public class IngredientServices implements IngredientService{
-
     private final Map<Integer, Ingredient> ingredientMap = new HashMap<Integer, Ingredient>();
     private static Integer id = 0;
     @Override

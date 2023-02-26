@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import static info.localhost.recipebook.controllers.IngredientController.getStringStringMap;
-
 @RestController
 @RequestMapping("/recipe")
 @RequiredArgsConstructor

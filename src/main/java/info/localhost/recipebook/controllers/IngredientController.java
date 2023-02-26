@@ -69,7 +69,6 @@ public class IngredientController {
     })
     ResponseEntity<Ingredient>updateIngredient(@PathVariable Integer id, @Valid @RequestBody Ingredient ingredient){
         return ResponseEntity.ok(ingredientService.updateIngredient(id, ingredient));
-
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление ингредиентов по id")

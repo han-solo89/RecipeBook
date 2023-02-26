@@ -2,6 +2,13 @@ package info.localhost.recipebook.controllers;
 
 import info.localhost.recipebook.model.Ingredient;
 import info.localhost.recipebook.model.Recipe;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Parameter;
@@ -11,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/ingredient")
 @RequiredArgsConstructor
+@Tag(name = "Ингредиенты",description = "CRUD-операции для работы с рецептами")
 public class IngredientController {
     private final IngredientController ingredientService;
 

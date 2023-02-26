@@ -1,25 +1,26 @@
 package info.localhost.recipebook.controllers;
 
 
-import jakarta.servlet.annotation.WebInitParam;
-import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
-import jdk.jfr.Percentage;
-import lombok.RequiredArgsConstructor;
 import info.localhost.recipebook.model.Recipe;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Parameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.ConstructorParameters;
-import javax.persistence.TableGenerator;
-import java.lang.annotation.Target;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+
+import static info.localhost.recipebook.controllers.IngredientController.getStringStringMap;
 
 @RestController
 @RequestMapping("/recipe")
@@ -31,7 +32,7 @@ public class RecipeController {
     @Operation(summary = "Поиск рецепта по id")
     @ApiResponses(value = {
             @ApiResponses(responceCode = "200",description = "Рецепт был найден")})
-    @Parameter(value = {@Parameter(name = "id",example = "1")})
+    @Parameters(value = {@Parameter(name = "id",example = "1")})
     @GetMapping("/{id}")
     ResponseEntity<Recipe>getRecipe(@PathVariable Integer id) {
         return ResponseEntity.ok(recipeService.getRecipe(id));
@@ -95,6 +96,7 @@ public class RecipeController {
             MethodArgumentNotValidException ex){
         return getStringStringMap(ex);
     }
+
 
 
 }

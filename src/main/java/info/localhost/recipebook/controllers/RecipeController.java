@@ -27,7 +27,6 @@ import static info.localhost.recipebook.controllers.IngredientController.getStri
 @RequiredArgsConstructor
 @Tag(name = "Рецепты",description = "CRUD-операции для работы с рецептами")
 public class RecipeController {
-
     private final RecipeController recipeService;
     @Operation(summary = "Поиск рецепта по id")
     @ApiResponses(value = {

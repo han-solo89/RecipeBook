@@ -71,7 +71,6 @@ public class IngredientController {
         return ResponseEntity.ok(ingredientService.updateIngredient(id, ingredient));
 
     }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление ингредиентов по id")
     @ApiResponses(value = {

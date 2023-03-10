@@ -16,8 +16,6 @@ public class IngredientServices implements IngredientService{
         ingredientMap.put(id++,ingredient);
         return ingredient;
     }
-
-
     @Override
     public Ingredient getIngredient(Integer id) throws NotFoundException {
         if (!ingredientMap.containsKey(id)){

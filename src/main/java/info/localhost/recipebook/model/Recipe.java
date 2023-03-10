@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 public class Recipe {
-
     @NotBlank
     private String name;
     @Positive

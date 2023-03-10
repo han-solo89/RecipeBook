@@ -27,7 +27,6 @@ public class RecipeServices implements RecipeService{
         }
         return recipeMap.get(id);
     }
-
     @Override
     public Collection<Recipe> getAll() {
         return recipeMap.values();

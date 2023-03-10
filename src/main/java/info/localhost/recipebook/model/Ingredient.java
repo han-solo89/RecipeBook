@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode
 public class Ingredient {
-
     @NotBlank(message = "Name is mandatory")
     private String name;
     @Positive

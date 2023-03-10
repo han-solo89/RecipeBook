@@ -11,5 +11,4 @@ public interface IngredientService {
     Collection<Ingredient> getAll();
     Ingredient removeIngredient(int id) throws NotFoundException;
     Ingredient updateIngredient(int id, Ingredient ingredient) throws NotFoundException;
-
 }

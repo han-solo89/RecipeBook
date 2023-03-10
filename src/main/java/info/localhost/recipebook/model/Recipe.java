@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

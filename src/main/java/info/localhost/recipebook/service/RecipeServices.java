@@ -31,7 +31,6 @@ public class RecipeServices implements RecipeService{
     public Collection<Recipe> getAll() {
         return recipeMap.values();
     }
-
     @Override
     public Recipe removeRecipe(int id) throws NotFoundException {
         if (recipeMap.containsKey(id)){

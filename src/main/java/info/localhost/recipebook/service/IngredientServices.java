@@ -24,7 +24,6 @@ public class IngredientServices implements IngredientService{
         return ingredientMap.get(id);
     }
 
-
     @Override
     public Collection<Ingredient> getAll() {
         return ingredientMap.values();

@@ -11,4 +11,5 @@ public interface RecipeService {
     Collection<Recipe> getAll();
     Recipe removeRecipe(int id) throws NotFoundException;
     Recipe updateRecipe(int id, Recipe recipe) throws NotFoundException;
+
 }

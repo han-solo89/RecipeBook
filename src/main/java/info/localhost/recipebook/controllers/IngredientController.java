@@ -105,7 +105,6 @@ public class IngredientController {
             MethodArgumentNotValidException e) {
         return getStringStringMap(e);
     }
-
     @NotNull
     static Map<String, String> getStringStringMap(MethodArgumentNotValidException e) {
         Map<String,String> errors = new HashMap<>();

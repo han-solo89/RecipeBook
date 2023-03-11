@@ -4,7 +4,6 @@ import info.localhost.recipebook.model.Recipe;
 import javassist.NotFoundException;
 
 import java.util.Collection;
-
 public interface RecipeService {
     Recipe addRecipe(Recipe recipe);
     Recipe getRecipe(Integer id) throws NotFoundException;

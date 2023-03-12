@@ -1,8 +1,8 @@
 package info.localhost.recipebook.service;
 
 import info.localhost.recipebook.model.Ingredient;
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.Collection;
 import java.util.HashMap;

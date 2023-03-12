@@ -1,7 +1,7 @@
 package info.localhost.recipebook.service;
 
 import info.localhost.recipebook.model.Ingredient;
-import javassist.NotFoundException;
+import org.webjars.NotFoundException;
 
 import java.util.Collection;
 public interface IngredientService {

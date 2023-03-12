@@ -3,6 +3,7 @@ package info.localhost.recipebook.service;
 import info.localhost.recipebook.model.Ingredient;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

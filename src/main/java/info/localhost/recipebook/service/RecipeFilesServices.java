@@ -10,19 +10,18 @@ import java.nio.file.Path;
 
 @Service("recipeFilesService")
 public class RecipeFilesServices implements FilesService{
-    @Value("${src/mail/resources}")
+    @Value("${path.to.data.file}")
     private String dataFilesPathIngredient;
-    @Value("${recipe.json}")
+    @Value("${name.of.recipe.file}")
     private String dataFilesNameRecipe;
     @Override
-    public boolean saveToFile(String json) {
+    public void saveToFile(String json) {
         try {
             cleanDataFile();
             Files.writeString(Path.of(dataFilesPathIngredient, dataFilesNameRecipe), json);
-            return true;
         }catch (IOException o){
-        return false;
-    }
+            o.printStackTrace();
+        }
 
     }
 
@@ -31,6 +30,7 @@ public class RecipeFilesServices implements FilesService{
         try {
             return Files.readString(Path.of(dataFilesPathIngredient, dataFilesNameRecipe));
         } catch (IOException o ){
+            o.printStackTrace();
             throw new RuntimeException("не удалось прочитать файл");
         }
     }else {

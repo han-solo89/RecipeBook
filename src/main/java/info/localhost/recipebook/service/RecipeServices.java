@@ -36,7 +36,6 @@ public class RecipeServices implements RecipeService{
         if (!recipeMap.containsKey(id)){
             throw new NotFoundException("рецепт с заданным id не найден");
         }
-        saveToFile();
         return recipeMap.get(id);
     }
     @Override

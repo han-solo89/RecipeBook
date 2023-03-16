@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.localhost.recipebook.model.Ingredient;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -15,15 +16,17 @@ import java.util.Map;
 public class IngredientServices implements IngredientService{
     private Map<Integer, Ingredient> ingredientMap = new HashMap<Integer, Ingredient>();
     private static Integer id = 0;
-    final  private FilesServices filesServices;
+    final  private FilesService filesService;
 
-    public IngredientServices(FilesServices filesServices) {
-        this.filesServices = filesServices;
+    public IngredientServices(@Qualifier("ingredientFilesService") FilesService filesService) {
+        this.filesService = filesService;
+
     }
 
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
         ingredientMap.put(id++,ingredient);
+        saveToFileIngredient();
         return ingredient;
     }
     @Override
@@ -31,6 +34,7 @@ public class IngredientServices implements IngredientService{
         if (!ingredientMap.containsKey(id)){
             throw new NotFoundException("рецепт с заданным id не найден");
         }
+        saveToFileIngredient();
         return ingredientMap.get(id);
     }
 
@@ -44,6 +48,7 @@ public class IngredientServices implements IngredientService{
         if (ingredientMap.containsKey(id)){
         throw new NotFoundException("рецепт с заданным id не найден");
     }
+        saveToFileIngredient();
         return ingredientMap.remove(id);
     }
     @Override
@@ -51,31 +56,35 @@ public class IngredientServices implements IngredientService{
         if (ingredientMap.containsKey(id)){
             throw new NotFoundException("рецепт с заданным id не найден");
         }
+        saveToFileIngredient();
         return ingredientMap.put(id, ingredient);
     }
-    private void saveToFile(){
-        try {
-            String json = new ObjectMapper().writeValueAsString(ingredientMap);
-            filesServices.saveToFile(json);
-        }catch (JsonProcessingException o){
-            throw new RuntimeException(o);
-        }
-    }
-    private void readFromFile(){
-        try {
-            String json = filesServices.readFromFile();
-            ingredientMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Ingredient>>() {
 
-            });
-        }catch (JsonProcessingException o){
-            throw new RuntimeException(o);
-        }
-    }
     @PostConstruct
-    private void initIngredient() {
+    private void initIngredient() throws RuntimeException{
         readFromFile();
 
     }
+
+    private void readFromFile() throws RuntimeException{
+        try {
+            String json = filesService.readFromFile();
+            ingredientMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Ingredient>>() {
+            });
+        }catch (JsonProcessingException o){
+            throw new RuntimeException("фаил не удалось прочитать ");
+        }
+    }
+    private void saveToFileIngredient() throws RuntimeException{
+        try {
+            String json = new ObjectMapper().writeValueAsString(ingredientMap);
+            filesService.saveToFile(json);
+
+        }catch (JsonProcessingException o){
+            throw new RuntimeException("фаил не удалось сохранить");
+        }
+    }
+
 }
 
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.localhost.recipebook.model.Recipe;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -18,10 +19,10 @@ public class RecipeServices implements RecipeService{
     private Map<Integer, Recipe> recipeMap = new HashMap<>();
     private static Integer id = 0;
 
-    final private FilesServices filesServices;
+    final private FilesService filesService;
 
-    public RecipeServices(FilesServices filesServices) {
-        this.filesServices = filesServices;
+    public RecipeServices(@Qualifier("recipeFilesService") FilesService filesService) {
+        this.filesService = filesService;
     }
 
     @Override
@@ -47,6 +48,7 @@ public class RecipeServices implements RecipeService{
         if (recipeMap.containsKey(id)){
             throw new NotFoundException("рецепт с заданным id не найден");
         }
+        saveToFile();
         return recipeMap.remove(id);
     }
     @Override
@@ -54,29 +56,32 @@ public class RecipeServices implements RecipeService{
         if (recipeMap.containsKey(id)){
             throw new NotFoundException("рецепт с заданным id не найден");
         }
+        saveToFile();
         return recipeMap.put(id, recipe);
 
     }
+    @PostConstruct
+    private void initRecipe() throws RuntimeException{
+        readFromFile();
+    }
+
     private void saveToFile(){
         try {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
-            filesServices.saveToFile(json);
+            filesService.saveToFile(json);
         }catch (JsonProcessingException o){
-            throw new RuntimeException(o);
+            throw new RuntimeException("фаил не удалось сохранить");
         }
     }
     private void readFromFile(){
         try {
-            String json = filesServices.readFromFile();
+            String json = filesService.readFromFile();
             recipeMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
 
             });
         }catch (JsonProcessingException o){
-            throw new RuntimeException(o);
+            throw new RuntimeException("фаил не удалось прочитать");
         }
     }
-    @PostConstruct
-    private void initRecipe(){
-        readFromFile();
-    }
+
 }

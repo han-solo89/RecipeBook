@@ -1,10 +1,12 @@
 package info.localhost.recipebook.service;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -55,5 +57,29 @@ public class RecipeFilesServices implements FilesService{
     public File getDataFileTxt(){
         return new File(dataFilesPathIngredient + "/" + dataFilesNameRecipe);
     }
+
+    @Override
+    public InputStreamResource exportFile() throws FileNotFoundException {
+        File file = getDataFileTxt();
+        return new InputStreamResource(new FileInputStream(file));
+    }
+
+
+    @Override
+    public void importFile(MultipartFile file) throws FileNotFoundException {
+        cleanDataFile();
+        FileOutputStream fos = new FileOutputStream(getDataFileTxt());
+        try {
+            IOUtils.copy(file.getInputStream(),fos);
+        }catch (IOException o){
+            throw  new  RuntimeException("Проблема сохранения файла");
+        }
+    }
+
+    @Override
+    public Path getPath() {
+        return getPath();
+    }
+
 
 }

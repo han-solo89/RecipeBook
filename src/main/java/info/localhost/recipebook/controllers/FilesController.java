@@ -26,7 +26,6 @@ public class FilesController {
         this.recipeFilesServices = recipeFilesServices;
         this.ingredientFilesServices = ingredientFilesServices;
     }
-
     @GetMapping("/ingredient/export")
     @Operation(description = "экспорт файлов ингредиентов")
     public ResponseEntity<InputStreamResource> downloadIngredientFile() throws IOException{

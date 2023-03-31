@@ -12,11 +12,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +95,17 @@ public class IngredientController {
         }
         return ResponseEntity.notFound().build().hasBody();
     }
+    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> addIngredientsFromFile(@RequestParam MultipartFile file){
+        try (InputStream stream = file.getInputStream()){
+            ingredientService.addIngredientsFromFile((MultipartFile) stream);
+        }catch (IOException e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
+        return null;
+    }
+
     @DeleteMapping
     @Operation(summary = "удалени всех ингредиентов", description = "Удаление производится без параметров")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "ингредиенты удалены")})

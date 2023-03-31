@@ -5,12 +5,18 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.localhost.recipebook.model.Recipe;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Service
@@ -81,6 +87,17 @@ public class RecipeServices implements RecipeService{
             });
         }catch (JsonProcessingException o){
             throw new RuntimeException("фаил не удалось прочитать");
+        }
+    }
+    @Override
+    public void addRecipesFromInputStream(InputStream inputStream) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] array = StringUtils.split(line, '|');
+                Recipe recipe = new Recipe(Locale.Category.valueOf(array[0]), Integer.valueOf(array[1]), array[2]);
+                addRecipesFromInputStream(inputStream);
+            }
         }
     }
 

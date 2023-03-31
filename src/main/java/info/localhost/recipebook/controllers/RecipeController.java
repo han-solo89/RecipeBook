@@ -13,10 +13,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import static info.localhost.recipebook.controllers.IngredientController.getStringStringMap;
@@ -72,6 +76,17 @@ public class RecipeController {
         }
         return ResponseEntity.ok(recipe);
     }
+    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> addRecipesFromFile(@RequestParam MultipartFile file){
+        try (InputStream stream = file.getInputStream()){
+            recipeService.addRecipesFromFile((MultipartFile) stream);
+        }catch (IOException e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
+        return null;
+    }
+
 
     @DeleteMapping("/{id}")
     @Operation(summary = "удаление рецептов по id")
@@ -95,6 +110,7 @@ public class RecipeController {
         recipeService.removeAllRecipe();
         return ResponseEntity.ok().build();
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

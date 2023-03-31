@@ -3,6 +3,8 @@ package info.localhost.recipebook.service;
 import info.localhost.recipebook.model.Ingredient;
 import org.webjars.NotFoundException;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 public interface IngredientService {
     Ingredient addIngredient(Ingredient ingredient);
@@ -10,4 +12,6 @@ public interface IngredientService {
     Collection<Ingredient> getAll();
     Ingredient removeIngredient(int id) throws NotFoundException;
     Ingredient updateIngredient(int id, Ingredient ingredient) throws NotFoundException;
+
+    void addIngredientsFromInputStream(InputStream inputStream) throws IOException;
 }

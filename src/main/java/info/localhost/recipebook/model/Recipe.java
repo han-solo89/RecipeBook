@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import java.util.Locale;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -22,4 +24,8 @@ public class Recipe {
     private List<Ingredient> ingredients;
     @NotEmpty
     private List<String>steps;
+
+
+    public Recipe(Locale.Category valueOf, Integer valueOf1, String s) {
+    }
 }

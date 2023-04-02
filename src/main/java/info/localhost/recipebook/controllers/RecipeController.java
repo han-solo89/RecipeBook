@@ -76,7 +76,7 @@ public class RecipeController {
         }
         return ResponseEntity.ok(recipe);
     }
-    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @GetMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> addRecipesFromFile(@RequestParam MultipartFile file){
         try (InputStream stream = file.getInputStream()){
             recipeService.addRecipesFromFile((MultipartFile) stream);

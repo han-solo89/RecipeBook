@@ -95,7 +95,7 @@ public class IngredientController {
         }
         return ResponseEntity.notFound().build().hasBody();
     }
-    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @GetMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> addIngredientsFromFile(@RequestParam MultipartFile file){
         try (InputStream stream = file.getInputStream()){
             ingredientService.addIngredientsFromFile((MultipartFile) stream);

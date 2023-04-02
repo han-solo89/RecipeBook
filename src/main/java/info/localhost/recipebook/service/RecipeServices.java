@@ -89,16 +89,6 @@ public class RecipeServices implements RecipeService{
             throw new RuntimeException("фаил не удалось прочитать");
         }
     }
-    @Override
-    public void addRecipesFromInputStream(InputStream inputStream) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] array = StringUtils.split(line, '|');
-                Recipe recipe = new Recipe(Locale.Category.valueOf(array[0]), Integer.valueOf(array[1]), array[2]);
-                addRecipesFromInputStream(inputStream);
-            }
-        }
-    }
+
 
 }
